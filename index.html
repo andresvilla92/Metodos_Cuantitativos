@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="metodos" ng-controller="numrandom">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+    
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+
+</head>
+<body>
+    <!--<h1 class="new-class" ng-class="{'other-class': name=='Andres'}">Hello 
+        <span ng-if='name'>{{name}}</span>
+        <span ng-if='!name'>World</span>
+    </h1>
+    <input type="text" ng-model="name">-->
+    <div class="input-field col s12">
+        <select ng-model="myDropDown">
+            <option value="" disabled selected>Seleccionar Metodo</option>
+            <option value="cuadrados">Cuadrados Medios</option>
+            <optgroup label="Metodo congruencial">
+                <option value="lineal">Lineal</option>
+                <option value="mixto">Mixto</option>
+                <option value="multiplicativo">Multiplicativo</option>
+            </optgroup>
+        </select>
+        <label>Opciones para generar numeros mixtos</label>
+    </div>
+    <br>
+    
+    <div id='Metodos_cuadrados' ng-show="myDropDown=='cuadrados'">
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="cuadrados" type="number" class="validate" ng-model="cuadrados" ng-change="update()">
+                
+                <label for="cuadrados" data-error="wrong" data-success="right">Semilla del generador</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="iteraciones" type="number" class="validate" ng-model="iteraciones" ng-change="update()">
+                
+                <label for="iteraciones" data-error="wrong" data-success="right">Numero de iteraciones</label>
+            </div>
+        </div>
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Generador</th>
+                    <th>Xi</th>
+                    <th>Ri=Xi/m</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="ml in cuadrados_medios">
+                <td>{{ ml.generador }}</td>
+                <td>{{ ml.xi }}</td>
+                <td>{{ ml.ri }}</td>
+            </tr>
+            
+        </table>
+    </div>
+    
+    
+    <div id='congruencial_lineal' ng-show="myDropDown=='lineal' || myDropDown=='mixto' || myDropDown=='multiplicativo'">
+        <div class="row">
+            <div class="input-field col s3">
+                <input id="a" type="number" class="validate" ng-model="a" ng-change="update()">
+                
+                <label for="a" data-error="wrong" data-success="right">a</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="X" type="number" class="validate" ng-model="X" ng-change="update()">
+                
+                <label for="X" data-error="wrong" data-success="right">X0</label>
+            </div>
+            <div class="input-field col s3" ng-show="myDropDown=='lineal'">
+                <input id="c" type="number" class="validate" ng-model="c" ng-change="update()">
+                
+                <label for="c" data-error="wrong" data-success="right">C</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="m" type="number" class="validate" ng-model="m" ng-change="update()">
+                
+                <label for="m" data-error="wrong" data-success="right">m</label>
+            </div>
+        </div>
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Generador</th>
+                    <th>Xi</th>
+                    <th>Ri=Xi/m</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="x in congruencial_lineal">
+                <td>{{ x.generador }}</td>
+                <td>{{ x.xi }}</td>
+                <td>{{ x.ri }}</td>
+            </tr>
+            
+        </table>
+    </div>
+    
+    
+</body>
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/metodos.js"></script>
+    
+    <style>
+        .new-class{
+            font-size: 50px;
+        }
+        .other-class{
+            color: blue;
+            font-size: 32px;
+        }
+    </style>
+</html>
